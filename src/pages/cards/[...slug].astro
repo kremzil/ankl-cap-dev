@@ -15,7 +15,12 @@ import MainLayout from "../../layouts/MainLayout.astro";
 
 // add all cards to sitemap
 sitemap(async ({ addToSitemap }) => {
-  const cards = await getCollection("cards");
+  let cards = [];
+  try {
+    cards = await getCollection("cards");
+  } catch {
+    cards = [];
+  }
 
   addToSitemap(
     cards.map((card) => ({
@@ -23,6 +28,19 @@ sitemap(async ({ addToSitemap }) => {
     })),
   );
 });
+
+export async function getStaticPaths() {
+  try {
+    const cards = await getCollection("cards");
+    return cards.map((card) => ({
+      params: {
+        slug: card.id,
+      },
+    }));
+  } catch {
+    return [];
+  }
+}
 
 const { slug } = Astro.params;
 if (slug === undefined) {
@@ -32,7 +50,8 @@ if (slug === undefined) {
   });
 }
 
-const card = await getEntry("cards", slug);
+const slugId = Array.isArray(slug) ? slug.join("/") : slug;
+const card = await getEntry("cards", slugId);
 if (!card) {
   return Astro.redirect("/404");
 }
@@ -57,8 +76,12 @@ if (cardParsedData?.mermaidMarkdown) {
   pakoContent = await loadPako(cardParsedData.mermaidMarkdown);
 }
 
-// Get all cards for navigation and recommendations
-const allCards = await getCollection("cards");
+let allCards = [];
+try {
+  allCards = await getCollection("cards");
+} catch {
+  allCards = [];
+}
 const currentCardTags = card.data.tags;
 
 // Sort cards by publication date (newest first) for navigation

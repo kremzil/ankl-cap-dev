@@ -21,7 +21,12 @@ const page = Number(Astro.url.searchParams.get("page")) || 1;
 const limit = Number(Astro.url.searchParams.get("limit")) || defaultLimit;
 const tag = Astro.url.searchParams.get("tag");
 
-const sourceItems = await getCollection(collectionType);
+let sourceItems: Awaited<ReturnType<typeof getCollection>>;
+try {
+  sourceItems = await getCollection(collectionType);
+} catch {
+  sourceItems = [];
+}
 
 const tags = sourceItems.flatMap((item) => item.data.tags || []);
 const tagCounts = tags.reduce(
@@ -32,20 +37,19 @@ const tagCounts = tags.reduce(
   {} as Record<string, number>,
 );
 
-const tagList = Object.entries(tagCounts)
+const tagEntries = Object.entries(tagCounts);
+const maxCount =
+  tagEntries.length > 0
+    ? Math.max(...(Object.values(tagCounts) as number[]))
+    : 1;
+const tagList = tagEntries
   .sort(([, a], [, b]) => (b as number) - (a as number))
   .map(([tag, count]) => ({
     tag,
     count: count as number,
     size: Math.max(
       1,
-      Math.min(
-        4,
-        Math.ceil(
-          ((count as number) * 4) /
-            Math.max(...(Object.values(tagCounts) as number[])),
-        ),
-      ),
+      Math.min(4, Math.ceil(((count as number) * 4) / maxCount)),
     ),
   }));
 

@@ -14,7 +14,12 @@ import { formatDate } from "@/lib/utils";
 
 // add all slides to sitemap
 sitemap(async ({ addToSitemap }) => {
-  const slides = await getCollection("slides");
+  let slides = [];
+  try {
+    slides = await getCollection("slides");
+  } catch {
+    slides = [];
+  }
 
   addToSitemap(
     slides.map((slide) => ({
@@ -22,6 +27,19 @@ sitemap(async ({ addToSitemap }) => {
     })),
   );
 });
+
+export async function getStaticPaths() {
+  try {
+    const slides = await getCollection("slides");
+    return slides.map((slide) => ({
+      params: {
+        slug: slide.id,
+      },
+    }));
+  } catch {
+    return [];
+  }
+}
 
 const { slug } = Astro.params;
 if (slug === undefined) {
@@ -31,14 +49,20 @@ if (slug === undefined) {
   });
 }
 
-const slide = await getEntry("slides", slug);
+const slugId = Array.isArray(slug) ? slug.join("/") : slug;
+const slide = await getEntry("slides", slugId);
 
 if (!slide) {
   return Astro.redirect("/404");
 }
 
 // Get navigation data
-const allSlides = await getCollection("slides");
+let allSlides = [];
+try {
+  allSlides = await getCollection("slides");
+} catch {
+  allSlides = [];
+}
 const adjacentContent = getAdjacentContent(allSlides, slide.id);
 
 const ogImageUrl = new URL("/og-enhanced", Astro.url);

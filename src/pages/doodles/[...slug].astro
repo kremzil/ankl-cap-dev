@@ -11,7 +11,12 @@ import { getAdjacentContent } from "@/lib/navigation";
 import "@/styles/article.css";
 
 sitemap(async ({ addToSitemap }) => {
-  const doodles = await getCollection("doodles");
+  let doodles = [];
+  try {
+    doodles = await getCollection("doodles");
+  } catch {
+    doodles = [];
+  }
 
   addToSitemap(
     doodles.map((item) => ({
@@ -19,6 +24,19 @@ sitemap(async ({ addToSitemap }) => {
     })),
   );
 });
+
+export async function getStaticPaths() {
+  try {
+    const doodles = await getCollection("doodles");
+    return doodles.map((item) => ({
+      params: {
+        slug: item.id,
+      },
+    }));
+  } catch {
+    return [];
+  }
+}
 
 const { slug } = Astro.params;
 if (slug === undefined) {
@@ -40,7 +58,12 @@ const origin = Astro.url.origin;
 const title = doodle.data.title;
 const description = doodle.data.description || SITE_DESCRIPTION;
 const pageTitle = `${title} | ${SITE_TITLE}`;
-const allDoodles = await getCollection("doodles");
+let allDoodles = [];
+try {
+  allDoodles = await getCollection("doodles");
+} catch {
+  allDoodles = [];
+}
 const adjacentContent = getAdjacentContent(allDoodles, doodle.id);
 ---
 
