@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BlogCard from "@/components/blog/BlogCard.astro";
 import CardCover from "@/components/knowledge-card/CardCover.astro";
+import CompanySlider from "@/components/company/CompanySlider.astro";
 import HeroSection from "@/components/landing-page/HeroSection.astro";
 import LatestSection from "@/components/landing-page/LatestSection.astro";
 import SlideCard from "@/components/slide/SlideCard.astro";
@@ -55,6 +56,67 @@ const posts = allPosts.slice(0, 3);
 const cards = allCards.slice(0, 6);
 const slides = allSlides.slice(0, 6);
 
+const companies = [
+  {
+    id: "shark",
+    title: "Shark",
+    tags: ["retail", "experiments", "innovation"],
+    description:
+      "Shark realizuje ôzne projekty a zastrešuje viaceré značky v rámci skupiny ANKL Cap.",
+    links: [
+      "https://www.printexpert.sk",
+      "https://www.inzero.sk",
+      "https://www.shark.sk",
+      "https://www.moodbooster.sk",
+      "https://www.j4ff.sk",
+      "https://www.ticketke.sk",
+      "https://www.pkosice.sk",
+      "https://www.hypotekarnyexpert.sk",
+      "https://www.akobytmiloinar.sk",
+      "https://www.obmi.cz",
+      "https://www.obmi.institute",
+    ],
+    template: "black and white",
+  },
+  {
+    id: "kpk",
+    title: "KPK Reklama",
+    subtitle: "KPK Reklama – fyzický branding, ktorý zanechá dojem",
+    description:
+      "KPK Reklama zabezpečuje polepy predajní, výkladov, áut, svetelné boxy, 3D písmo a celoplošný vizuálny dizajn pre firmy po celom Slovensku.",
+    bullets: [
+      "polepy výkladov a vozidiel",
+      "svetelné reklamy a 3D logá",
+      "montáže na kľúč",
+    ],
+    links: [
+      "https://www.kpkprint.sk",
+      "https://www.kpkprint.hu",
+      "https://www.kpkprint.de",
+      "https://www.ledbox.sk",
+      "https://www.safetyfloor.sk",
+      "https://www.kreativnetapety.sk",
+    ],
+    tags: ["branding", "production", "installations"],
+    template: "vintage",
+  },
+  {
+    id: "razdva",
+    title: "Razdva",
+    subtitle: "Razdva – marketing, ktorý má výkon",
+    description:
+      "Razdva je kreatívna a výkonnostná agentúra skupiny ANKL Cap. Zabezpečuje branding, PPC kampane, sociálne siete a e-commerce marketing pre firmy, startupy aj veľké značky.",
+    bullets: [
+      "výkonnostný marketing",
+      "správa sociálnych sietí",
+      "branding a stratégie",
+    ],
+    links: ["https://www.razdva.solutions"],
+    tags: ["marketing", "creative", "performance"],
+    template: "black and white",
+  },
+];
+
 // Get active doodle
 const now = new Date();
 const activeDoodleEntry = (await getCollection("doodles"))
@@ -79,6 +141,8 @@ const activeDoodle = activeDoodleEntry
   <HeroSection uniqueTags={uniqueTags} doodle={activeDoodle} />
 
   <div class="px-4 md:px-6">
+    <CompanySlider cards={companies} />
+
     <LatestSection
       title="Articles"
       accentColor="text-nebula"
