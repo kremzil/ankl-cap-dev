@@ -45,10 +45,10 @@ export interface SlideTheme {
   overlayColor: string;
 }
 
-export const SITE_TITLE = "MONA";
-export const SITE_DESCRIPTION = "Mona — Learn from What We Build";
+export const SITE_TITLE = "ANKL cap";
+export const SITE_DESCRIPTION = "ANKL cap — Komplexné riešenia pre rast vašej značky";
 
-export const PROD_URL = "https://www.mymona.xyz";
+export const PROD_URL = "https://www.anklcap.sk";
 
 export const isProdEnv = () => {
   if (import.meta.env?.PROD || import.meta.env?.MODE === "production") {
@@ -81,32 +81,26 @@ export interface MenuItem {
 export const MENU_ITEMS: MenuItem[] = [
   {
     id: "blogs",
-    label: "Articles",
+    label: "Noviny",
     href: "/blogs",
-    title: "Articles",
+    title: "Noviny",
     description:
-      "Practical guides, in-depth technical pieces, and lessons from real projects.",
+      "Noviny ANKL cap",
   },
-  {
-    id: "cards",
-    label: "Cards",
-    href: "/cards",
-    title: "Cards",
-    description: "Developer-Gathered, AI-Crafted, Human-Checked.",
+    {
+    id: "o nas",
+    label: "O nas",
+    href: "/o-nas",
+    title: "O nas",
+    description:
+      "Informácie o ANKL cap",
   },
-  {
-    id: "slides",
-    label: "Slides",
-    href: "/slides",
-    title: "Slides",
-    description: "Interactive presentations crafted for developers.",
-  },
-  {
-    id: "open-source",
-    label: "GitHub",
-    href: "https://github.com/monakit/monakit",
-    title: "GitHub",
-    description: "Explore our open-source projects.",
+      {
+    id: "kontakt",
+    label: "Kontakty",
+    href: "/kontakty",
+    title: "Kontakty",
+    description: "Kontaktné informácie",
   },
 ];
 

@@ -2,9 +2,10 @@
 import "@/styles/scrolling-tags.css";
 export interface Props {
   uniqueTags: string[];
+  disableClicks?: boolean;
 }
 
-const { uniqueTags } = Astro.props;
+const { uniqueTags, disableClicks = false } = Astro.props;
 const tagsPerRow = Math.ceil(uniqueTags.length / 5);
 const tagRows = Array.from({ length: 5 }, (_, i) =>
   uniqueTags.slice(i * tagsPerRow, (i + 1) * tagsPerRow).filter(Boolean),
@@ -14,6 +15,7 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
 <div
   id="scrolling-tags"
   class="tags-bg absolute inset-0 opacity-0 transition-opacity duration-1000 pointer-events-none"
+  data-disable-clicks={disableClicks}
 >
   {
     tagRows.map((row, index) => (
@@ -41,6 +43,8 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
     HOVER_DELAY: 150,
     CONTAINER_MULTIPLIER: 2,
   };
+
+  const disableTagClicks = document.getElementById("scrolling-tags")?.dataset.disableClicks === "true";
 
   const tagToTrackMap = new WeakMap<HTMLElement, HTMLElement>();
   const tagHoverTimeouts = new WeakMap<
@@ -257,14 +261,16 @@ const tagRows = Array.from({ length: 5 }, (_, i) =>
       true
     );
 
-    track.addEventListener("click", (e: Event) => {
-      const target = e.target;
-      if (isHTMLElement(target) && target.classList.contains("tag")) {
-        e.preventDefault();
-        const tagText = target.dataset.tagText || target.textContent || "";
-        window.location.href = `/search?q=${encodeURIComponent(tagText)}`;
-      }
-    });
+    if (!disableTagClicks) {
+      track.addEventListener("click", (e: Event) => {
+        const target = e.target;
+        if (isHTMLElement(target) && target.classList.contains("tag")) {
+          e.preventDefault();
+          const tagText = target.dataset.tagText || target.textContent || "";
+          window.location.href = `/search?q=${encodeURIComponent(tagText)}`;
+        }
+      });
+    }
 
     trackEventsDelegated.add(track);
   }

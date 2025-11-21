@@ -1,8 +1,6 @@
 ---
-import { Search } from "lucide-react";
-import BetaBadge from "@/components/BetaBadge.astro";
 import OptimizedImage from "@/components/OptimizedImage.astro";
-import { getNavigationItems, SITE_TITLE } from "../consts";
+import { getNavigationItems } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
 
 const visibleMenuItems = getNavigationItems();
@@ -16,19 +14,19 @@ const visibleMenuItems = getNavigationItems();
       <a href="/" class="flex items-center space-x-2 md:ml-0 ml-4">
         <OptimizedImage
           src="/logo.webp"
-          alt="mona"
-          width={40}
-          height={40}
-          class="h-10 w-10"
+          alt="ankl cap"
+          width={544}
+          height={74}
+          class="h-8 w-30"
         />
         <div>
           <div
             class="font-noto-serif text-xl font-bold text-teahouse-dark font-['Noto_Serif_SC',_'Noto_Serif_SC_Fallback',_serif]"
           >
-            {SITE_TITLE}
+    
           </div>
           <div class="flex justify-end mt-1">
-            <BetaBadge />
+           
           </div>
         </div>
       </a>
@@ -80,13 +78,7 @@ const visibleMenuItems = getNavigationItems();
       </nav>
     </div>
     <div class="hidden md:block">
-      <a
-        href="/search"
-        class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium hover:text-primary transition-colors text-white"
-      >
-        <Search className="w-4 h-4" />
-        Search
-      </a>
+      
     </div>
   </div>
 
@@ -104,15 +96,7 @@ const visibleMenuItems = getNavigationItems();
           </a>
         ))
       }
-      <div class="px-3 py-2">
-        <a
-          href="/search"
-          class="flex items-center gap-2 py-2 rounded-md text-base font-medium text-white hover:text-primary"
-        >
-          <Search className="w-4 h-4" />
-          Search
-        </a>
-      </div>
+
     </div>
   </div>
 </header>
