@@ -45,13 +45,6 @@ const allSlides = (await getCollection("slides"))
     tags: slide.data.tags,
   }));
 
-const allTags = [
-  ...allPosts.flatMap((post) => post.tags || []),
-  ...allCards.flatMap((card) => card.tags || []),
-  ...allSlides.flatMap((slide) => slide.tags || []),
-];
-const uniqueTags = [...new Set(allTags)];
-
 const posts = allPosts.slice(0, 3);
 const cards = allCards.slice(0, 6);
 const slides = allSlides.slice(0, 6);
@@ -116,6 +109,13 @@ const companies = [
     template: "black and white",
   },
 ];
+const heroTags = [
+  ...new Set(
+    companies.flatMap((company) => company.tags || [])
+  ),
+];
+
+
 
 // Get active doodle
 const now = new Date();
@@ -138,7 +138,7 @@ const activeDoodle = activeDoodleEntry
   description={SITE_DESCRIPTION}
   className="w-full p-0"
 >
-  <HeroSection uniqueTags={uniqueTags} doodle={activeDoodle} />
+  <HeroSection uniqueTags={heroTags} doodle={activeDoodle} />
 
   <div class="px-4 md:px-6">
     <CompanySlider cards={companies} />
