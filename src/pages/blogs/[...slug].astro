@@ -25,11 +25,11 @@ sitemap(async ({ addToSitemap }) => {
 export async function getStaticPaths() {
   const posts = await getCollection("blogs");
 
-  return posts.map((post) => ({
-    params: {
-      slug: post.id.split("/"),
-    },
-  }));
+return posts.map((post) => ({
+  params: {
+      slug: post.id,
+  },
+}));
 }
 
 const { slug } = Astro.params;
