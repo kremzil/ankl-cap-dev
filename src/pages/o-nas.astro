@@ -1,0 +1,91 @@
+---
+import HeroSection from "@/components/landing-page/HeroSection.astro";
+import LatestSection from "@/components/landing-page/LatestSection.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
+import MainLayout from "@/layouts/MainLayout.astro";
+
+const heroTags = ["o nás", "hodnoty", "partneri", "projekty"];
+
+const pillars = [
+  {
+    title: "Naša misia",
+    description:
+      "Spájame tlač, branding a digitálne riešenia do jedného ekosystému, aby značky rástli rýchlejšie a odvážnejšie.",
+  },
+  {
+    title: "Čo robíme",
+    description:
+      "Od návrhu kampane po finálnu inštaláciu billboardu alebo správu kampaní – ANKL cap zabezpečuje kompletný servis.",
+  },
+  {
+    title: "Ako pracujeme",
+    description:
+      "Každý projekt vedie samostatný tím s vlastným zameraním, ale spoločnou zodpovednosťou za výsledok.",
+  },
+];
+
+const timeline = [
+  {
+    year: "2014",
+    text: "Začíname s retailovou tlačou a meníme výklady po celom Slovensku.",
+  },
+  {
+    year: "2018",
+    text: "Budujeme vlastné marketingové štúdio a rozširujeme služby o digitálny marketing.",
+  },
+  {
+    year: "2022",
+    text: "Spúšťame projekty pre zahraničných klientov a otvárame prvé partnerstvá v EÚ.",
+  },
+];
+---
+
+<MainLayout
+  title={`O nás | ${SITE_TITLE}`}
+  description="Zoznámte sa s tímom ANKL cap – s ľuďmi, ktorí spájajú tlač, reklamu a digitálne služby pod jednu strechu."
+  className="w-full p-0"
+>
+  <section class="relative bg-slate-950 py-16">
+    <div class="mx-auto flex max-w-5xl flex-col gap-10 px-4 text-white">
+      <div>
+        <p class="text-sm uppercase tracking-[0.3em] text-nebula">ANKL cap</p>
+        <h1 class="mt-4 text-4xl font-semibold sm:text-5xl">
+          Synergia tímov, ktorá prináša konzistentný rast
+        </h1>
+        <p class="mt-6 text-lg text-slate-300">
+          ANKL cap je skupina špecializovaných spoločností. Každá z nich sa
+          venuje vlastnej disciplíne, no všetky prepájajú rovnaké hodnoty –
+          rýchlosť, férovosť a dôraz na detail.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        {pillars.map((pillar) => (
+          <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 backdrop-blur">
+            <h3 class="text-xl font-semibold text-white">{pillar.title}</h3>
+            <p class="mt-3 text-sm text-slate-300">{pillar.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-950/80 py-16">
+    <div class="mx-auto max-w-5xl px-4">
+      <h2 class="text-3xl font-bold text-white">Ako sme sa vyvíjali</h2>
+      <div class="mt-8 space-y-8 border-l border-slate-800 pl-6">
+        {timeline.map((item) => (
+          <div class="relative">
+            <span
+              class="absolute -left-[13px] top-1 block h-6 w-6 rounded-full bg-nebula/30 border border-nebula"
+            />
+            <p class="text-nebula text-sm uppercase tracking-widest">
+              {item.year}
+            </p>
+            <p class="text-white text-lg mt-2">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</MainLayout>

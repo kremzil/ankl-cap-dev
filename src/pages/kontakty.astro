@@ -1,0 +1,75 @@
+---
+import LatestSection from "@/components/landing-page/LatestSection.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
+import MainLayout from "@/layouts/MainLayout.astro";
+
+const contactCards = [
+  {
+    title: "Obchod a projekty",
+    description: "Pre cenové ponuky, projektové dopyty alebo spoluprácu.",
+    items: [
+      { label: "E-mail", value: "sales@anklcap.sk" },
+      { label: "Telefon", value: "+421 905 456 123" },
+    ],
+  },
+  {
+    title: "Podpora klientov",
+    description: "Potrebujete update kampane alebo servis?",
+    items: [
+      { label: "E-mail", value: "support@anklcap.sk" },
+      { label: "Telefon", value: "+421 948 987 321" },
+    ],
+  },
+  {
+    title: "Ťažké tlače & montáž",
+    description: "Logistika, montážne tímy, expresné nasadenie.",
+    items: [
+      { label: "E-mail", value: "production@anklcap.sk" },
+      { label: "Telefon", value: "+421 917 111 222" },
+    ],
+  },
+];
+---
+
+<MainLayout
+  title={`Kontakty | ${SITE_TITLE}`}
+  description="Spojte sa s ANKL cap – obchod, podpora a produkčné tímy na jednom mieste."
+  className="w-full p-0"
+>
+  <section class="bg-slate-950 py-16">
+    <div class="mx-auto max-w-5xl px-4 text-white">
+      <p class="text-sm uppercase tracking-[0.3em] text-nebula">kontakt</p>
+      <h1 class="mt-4 text-4xl font-semibold sm:text-5xl">
+        Sme pripravení hovoriť o vašom ďalšom projekte
+      </h1>
+      <p class="mt-4 text-lg text-slate-300">
+        Vyberte si tím, ktorý najlepšie zodpovedá vašej otázke. Reagujeme do
+        jedného pracovného dňa, pri urgentných montážach zvyčajne do niekoľkých
+        hodín.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-slate-950/80 pb-16">
+    <div class="mx-auto max-w-5xl px-4">
+      <div class="grid gap-6 md:grid-cols-3">
+        {contactCards.map((card) => (
+          <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 backdrop-blur">
+            <h3 class="text-xl font-semibold text-white">{card.title}</h3>
+            <p class="mt-2 text-sm text-slate-400">{card.description}</p>
+            <ul class="mt-4 space-y-2 text-white">
+              {card.items.map((item) => (
+                <li class="text-sm text-slate-300">
+                  <span class="text-xs uppercase tracking-wide text-nebula">
+                    {item.label}:
+                  </span>{" "}
+                  <span class="font-medium">{item.value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</MainLayout>
