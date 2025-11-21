@@ -46,7 +46,8 @@ export interface SlideTheme {
 }
 
 export const SITE_TITLE = "ANKL cap";
-export const SITE_DESCRIPTION = "ANKL cap — Komplexné riešenia pre rast vašej značky";
+export const SITE_DESCRIPTION =
+  "ANKL cap — Komplexné riešenia pre rast vašej značky";
 
 export const PROD_URL = "https://www.anklcap.sk";
 
@@ -84,18 +85,16 @@ export const MENU_ITEMS: MenuItem[] = [
     label: "Noviny",
     href: "/blogs",
     title: "Noviny",
-    description:
-      "Noviny ANKL cap",
+    description: "Noviny ANKL cap",
   },
-    {
+  {
     id: "o nas",
     label: "O nas",
     href: "/o-nas",
     title: "O nas",
-    description:
-      "Informácie o ANKL cap",
+    description: "Informácie o ANKL cap",
   },
-      {
+  {
     id: "kontakt",
     label: "Kontakty",
     href: "/kontakty",
