@@ -1,11 +1,10 @@
-import { readdirSync } from "node:fs";
 import { defineCollection } from "astro:content";
+import { readdirSync } from "node:fs";
 import { glob } from "astro/loaders";
 import { BlogMetadata } from "./schemas/blog";
 import { CardMetadata } from "./schemas/card";
 import { DoodleMetadata } from "./schemas/doodle";
 import { SlideMetadata } from "./schemas/slide";
-
 
 const hasMarkdownFiles = (dir: URL): boolean => {
   try {

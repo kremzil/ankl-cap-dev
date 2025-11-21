@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import BlogCard from "@/components/blog/BlogCard.astro";
+import CompanySlider from "@/components/company/CompanySlider.astro";
 import HeroSection from "@/components/landing-page/HeroSection.astro";
 import LatestSection from "@/components/landing-page/LatestSection.astro";
-import CompanySlider from "@/components/company/CompanySlider.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
 import MainLayout from "@/layouts/MainLayout.astro";
 
@@ -84,11 +84,8 @@ const companies = [
 ];
 
 const heroTags = [
-  ...new Set(
-    companies.flatMap((company) => company.tags || [])
-  ),
+  ...new Set(companies.flatMap((company) => company.tags || [])),
 ];
-
 ---
 
 <MainLayout
