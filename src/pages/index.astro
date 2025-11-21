@@ -110,12 +110,8 @@ const companies = [
   },
 ];
 const heroTags = [
-  ...new Set(
-    companies.flatMap((company) => company.tags || [])
-  ),
+  ...new Set(companies.flatMap((company) => company.tags || [])),
 ];
-
-
 
 // Get active doodle
 const now = new Date();
