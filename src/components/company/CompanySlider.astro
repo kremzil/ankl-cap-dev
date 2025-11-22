@@ -243,6 +243,9 @@ const cards = (Astro.props as { cards: CompanyCard[] }).cards ?? [];
     );
 
     let activeIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const SWIPE_THRESHOLD = 50;
 
 const setActive = (index) => {
   if (!slides.length) return;
@@ -274,6 +277,30 @@ const setActive = (index) => {
     const closeOverlay = () => {
       overlay.classList.add("hidden");
       document.body.style.overflow = "";
+    };
+
+    const handleTouchStart = (event) => {
+      if (!event.touches || event.touches.length === 0) return;
+      touchStartX = event.touches[0].clientX;
+      touchEndX = touchStartX;
+    };
+
+    const handleTouchMove = (event) => {
+      if (!event.touches || event.touches.length === 0) return;
+      touchEndX = event.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+      const deltaX = touchEndX - touchStartX;
+      if (Math.abs(deltaX) < SWIPE_THRESHOLD) {
+        return;
+      }
+
+      if (deltaX > 0) {
+        setActive(activeIndex - 1);
+      } else {
+        setActive(activeIndex + 1);
+      }
     };
 
     covers.forEach((cover) => {
@@ -314,5 +341,13 @@ const setActive = (index) => {
         if (url) window.open(url, "_blank");
       });
     });
+
+    overlay.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+    overlay.addEventListener("touchmove", handleTouchMove, {
+      passive: true,
+    });
+    overlay.addEventListener("touchend", handleTouchEnd);
   })();
 </script>
